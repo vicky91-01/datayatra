@@ -1,0 +1,19 @@
+[
+    {
+      "setup": [
+       "drop table if exists patient;",
+        "create table patient(id int,name varchar(255),physician_id int);",
+        "insert into patient values (1,'Jhon Doe',96);",
+        "insert into patient values (2,'Krish Jay',99);",
+        "insert into patient values (4,'Herman Sen',099);"
+        
+      ],
+      "query": "SELECT * FROM patient",
+      "expected_result": [
+        {"id": 1, "name": "Jhon Doe", "physician_id": 96}, 
+        {"id": 2, "name": "Krish Jay", "physician_id": 99}, 
+        {"id": 4, "name": "Herman Sen", "physician_id": 99}
+
+      ]
+    }
+]
