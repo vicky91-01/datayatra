@@ -30,7 +30,7 @@
           const formData = new FormData();
           formData.append("user_code", code);
     
-          fetch("{% url 'run_code' %}", {
+          fetch("{% url 'practice:run_code' %}", {
             method: "POST",
             headers: {
               "X-CSRFToken": getCookie("csrftoken")

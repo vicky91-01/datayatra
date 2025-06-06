@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.db import connection
@@ -8,12 +8,17 @@ import os
 from django.http import Http404
 from .utils import markdown_to_html
 from .utils import checktestcase
+from .models import Question, Submisson
 
 def index(request):
     """
     Render the index page of the practice app.
     """
-    filepath = os.path.join("./practice/questions/0001_all_patients/question.md")
+    # get question by id from database
+    # question = get_object_or_404(Question, pk="0002_some_patients")
+    # # get markdown file path from question model
+    # print(question.get_markdown_path())
+    filepath = os.path.join("./practice/questions/0002_some_patients/question.md")
     print(f"Loading question from: {filepath}")
     with open(filepath, 'r', encoding='utf-8') as f:
         md_text = f.read()
@@ -25,8 +30,8 @@ def index(request):
 def run_code(request):
     if request.method == "POST":
         user_input = request.POST.get("user_code")
-        
-        tc_filepath = "./practice/questions/0001_all_patients/testcases.json"
+        is_ordered = False
+        tc_filepath = "./practice/questions/0002_some_patients/testcases.json"
         with open(tc_filepath, 'r', encoding='utf-8') as f:
             test_cases = json.load(f)
         with connection.cursor() as cursor:
@@ -53,7 +58,11 @@ def run_code(request):
             tc_op = [dict(zip(tc_columns, row)) for row in tc_result]
         
         print("Checking test case...")
-        if user_op == tc_op:
+        
+        if user_op == tc_op and is_ordered == True:
+            print("Test case passed.")
+            status = {"status": "success", "message": "Test case passed."}
+        elif sorted(result) == sorted(tc_result) and columns == tc_columns and is_ordered == False:
             print("Test case passed.")
             status = {"status": "success", "message": "Test case passed."}
         else:
