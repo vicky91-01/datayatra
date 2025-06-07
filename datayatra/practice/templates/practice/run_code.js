@@ -1,30 +1,4 @@
-{% extends 'base.html' %}
 
-{% block title %}Practice{% endblock %}
-
-{% block content %}
-<div>
-    {{question_description |safe}}
-</div>
-<div>
-    <form id="codeForm">
-        {% csrf_token %}
-        <textarea name="user_code" id="user_code" 
-        placeholder="Write your code here..."
-        width="500px" rows="10"></textarea><br>
-    
-        <button type="submit">Run</button>
-    </form>
-</div>
-<div class="output" id="resultDiv">
-    
-</div>
-
-
-<!-- JAVASCRIPT -->
-{% block scripts %}
- <script>
-    
 document.getElementById("codeForm").addEventListener("submit", function(e) {
     e.preventDefault();
     console.log("inside codeForm JS");
@@ -32,7 +6,7 @@ document.getElementById("codeForm").addEventListener("submit", function(e) {
     const formData = new FormData();
     formData.append("user_code", code);
 
-    fetch("{% url 'practice:run_code' question.qid %}", {
+    fetch("{% url 'practice:run_code' %}", {
     method: "POST",
     headers: {
         "X-CSRFToken": getCookie("csrftoken")
@@ -122,8 +96,3 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-
- </script>
-{% endblock %}
-<!-- End of JAVASCRIPT -->
-{% endblock %}

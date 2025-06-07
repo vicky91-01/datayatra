@@ -22,9 +22,9 @@ class Question(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def get_markdown_path(self):
-        return f"./practice/questions/{self.id}/question.md"
+        return f"./practice/questions/{self.qid}/question.md"
     def get_testcase_path(self):
-        return f"./practice/questions/{self.id}/testcases.json"
+        return f"./practice/questions/{self.qid}/testcases.json"
     def __str__(self):
         return f"{self.title} [{self.category}]"  # Display title and category in admin panel
 

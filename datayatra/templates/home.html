@@ -1,35 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'login' %}">Login</a></li>
-            <li><a href="{% url 'signup' %}">Signup</a></li>
-            <li><a href="{% url 'logout' %}">Logout</a></li>
-           <li><a href="{% url 'practice:index' %}">Practice</a></li>
-        </ul>
-    </nav>
-    <!-- Render All Questions from practice_question table -->
-    <h1>Welcome to DataYatra</h1>
-    <p>Explore various data science and machine learning questions.</p>
-    <h2>Available Questions</h2>
-    <ul>
-        {% for question in questions %}
-            <li>
-                <a href="{% url 'practice:question_detail' question.id %}">{{ question.title }}</a>
-                <p>{{ question.description }}</p>
-            </li>
-        {% empty %}
-            <li>No questions available.</li>
-        {% endfor %}
-    </ul>
-    <footer>
-        <p>&copy; 2025 DataYatra. All rights reserved.</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Home Page</h1>
+    <p>Welcome to the home page of our practice app!</p>
+    {% if user.is_authenticated %}
+    <p>Hello, {{ user.username }}! You are logged in.</p>
+    {% else %}
+    <p>You are not logged in. Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'signup' %}">signup</a>.</p>
+    {% endif %}
+{% endblock %}

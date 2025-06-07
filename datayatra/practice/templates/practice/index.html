@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Practice{% endblock %}
+
+{% block content %}
+
     <div>
         {{question_description |safe}}
     </div>
@@ -22,6 +20,7 @@
     <div class="output" id="resultDiv">
         
     </div>
+{% endblock %}
     <script>
         document.getElementById("codeForm").addEventListener("submit", function(e) {
           e.preventDefault();
@@ -136,5 +135,3 @@
     });
   });
 </script>
-</body>
-</html>

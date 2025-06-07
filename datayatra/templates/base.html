@@ -1,0 +1,41 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Site{% endblock %}</title>
+</head>
+<body>
+
+    <!-- Header -->
+    <header style="background-color: #f2efef; color: rgb(29, 22, 22); padding: 1rem;">
+        <h1>My Practice App</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li>{{ user.username }}</li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Signup</a></li>
+                {% endif %}
+                
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+               <li><a href="{% url 'practice:question_list' %}">Practice</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Content -->
+    <main style="padding: 2rem;">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer style="background-color: #333; color: white; padding: 1rem; text-align: center;">
+        <p>&copy; 2025 My Site. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

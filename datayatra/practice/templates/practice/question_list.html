@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}All Questions{% endblock %}
+
+{% block content %}
+    <h1>All Questions</h1>
+    <p>Welcome to the practice questions page!</p>
+
+    {% if questions %}
+        <ul>
+            {% for question in questions %}
+                <li>
+                    <a href="{% url 'practice:solve' question.qid %}">{{ question.title }}</a>
+                    <p></p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No questions available at the moment.</p>
+    {% endif %}
+{% endblock %}
