@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'practice',  # This is the coding app
     'tailwind',  # Tailwind CSS for styling
     'theme',  # Custom theme for Tailwind
-
+    'blog',
 
     'django_browser_reload',  # For live reloading during development
 ]
@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'datayatra',
         'USER': 'root',
-        'PASSWORD': '0404',
+        'PASSWORD': 'vicky@123',
         'HOST': 'localhost',  # or IP/hostname
         'PORT': '3306',        # default MySQL port
     }
