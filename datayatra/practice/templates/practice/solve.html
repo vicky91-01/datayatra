@@ -1,30 +1,89 @@
 {% extends 'base.html' %}
+<head>
 
-{% block title %}Practice{% endblock %}
-
+{% block title %}{{question.title}}{% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js"></script>
+</head>
 {% block content %}
-<div>
-    {{question_description |safe}}
-</div>
-<div>
-    <form id="codeForm">
-        {% csrf_token %}
-        <textarea name="user_code" id="user_code" 
-        placeholder="Write your code here..."
-        width="500px" rows="10"></textarea><br>
-    
-        <button type="submit">Run</button>
-    </form>
-</div>
-<div class="output" id="resultDiv">
-    
-</div>
+<style>
+    h1{
+        font-size: 2rem;
+        color: #333;
+    }
+    #editor-container {
+      width: 100%;
+      height: 300px;
+      border: 1px solid #ccc;
+    }
+    .all-unset {
+        all: unset;
+        display: block;
+    }
 
+</style>
+<div class="main bg-white flex">
 
+    <div class="description w-1/2 p-4">
+        <div class="all-unset">
+        {{question_description |safe}}
+        </div>
+    </div>
+    <div class="code-section w-1/2 p-4">
+        <form id="codeForm">
+            {% csrf_token %}
+            <select id="language-select">
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+                <option value="sql" selected>SQL</option>
+                <option value="html">HTML</option>
+              </select>
+              <select id="theme-select">
+                <option value="vs-dark">Dark</option>
+                <option value="vs-light">Light</option>
+              </select>
+              
+              <select id="font-size-select">
+                <option value="14">14px</option>
+                <option value="16" selected>16px</option>
+                <option value="18">18px</option>
+                <option value="20">20px</option>
+              </select>
+            
+            
+              
+              
+              
+              <br><br>
+              
+              <!-- Editor container -->
+              <div id="editor-container">
+                <textarea 
+                name="user_code" 
+                id="user_code" 
+                rows="14"
+                placeholder="Write your code here..."
+                class="w-full h-full resize-none p-4 text-sm font-mono rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            </textarea>
+              </div>
+            <br>
+              
+                
+            
+        
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Run</button>
+            <button type="submit" class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-blue-700">Submit</button>
+        </form>
+    
+        <div class="output" id="resultDiv"></div>
+    </div>
+</div> 
+<!-- END OF MAIN DIV CLASS -->
 <!-- JAVASCRIPT -->
 {% block scripts %}
- <script>
-    
+
+<script>
+
+
 document.getElementById("codeForm").addEventListener("submit", function(e) {
     e.preventDefault();
     console.log("inside codeForm JS");

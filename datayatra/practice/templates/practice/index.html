@@ -1,13 +1,21 @@
+{% load static tailwind_tags %}
 {% extends 'base.html' %}
+<head>
+  {% tailwind_css %}
+</head>
+
+
+
+
 
 {% block title %}Practice{% endblock %}
 
 {% block content %}
-
-    <div>
+<div class="main grid grid-cols-2 gap-4 bg-slate-500">
+    <div class="description">
         {{question_description |safe}}
     </div>
-    <div>
+    <div class="code-section">
         <form id="codeForm">
             {% csrf_token %}
             <textarea name="user_code" id="user_code" 
@@ -16,10 +24,10 @@
         
             <button type="submit">Run</button>
         </form>
+        <div class="output" id="resultDiv"></div>
     </div>
-    <div class="output" id="resultDiv">
-        
-    </div>
+</div> 
+<!-- main class end -->
 {% endblock %}
     <script>
         document.getElementById("codeForm").addEventListener("submit", function(e) {

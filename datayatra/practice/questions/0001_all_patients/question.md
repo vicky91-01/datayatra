@@ -1,4 +1,4 @@
-# 1. All Patients
+# All Patients
 
 Table: ```Patient```
 

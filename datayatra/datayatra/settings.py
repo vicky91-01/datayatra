@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import mysql.connector
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,8 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'practice',  # This is the coding app
-]
+    'tailwind',  # Tailwind CSS for styling
+    'theme',  # Custom theme for Tailwind
 
+
+    'django_browser_reload',  # For live reloading during development
+]
+TAILWIND_APP_NAME = 'theme'  # Name of the Tailwind app
+INTERNAL_IPS = ['127.0.0.1']  # For development purposes, allows internal IPs to access the app
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"  # Path to npm, adjust if necessary
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -48,6 +56,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'datayatra.urls'
@@ -121,8 +132,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+# If you have a central static folder (not inside an app):
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+# Optional if using collectstatic for production
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
